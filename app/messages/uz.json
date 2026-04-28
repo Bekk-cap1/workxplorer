@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "appTitle": "WorkXplorer — texnologik stek",
+    "appDescription": "Ish beruvchilarni GitHub’dagi ochiq repozitoriyalar orqali o‘rganing."
+  },
+  "nav": {
+    "brand": "WorkXplorer",
+    "home": "Bosh sahifa"
+  },
+  "language": {
+    "label": "Til",
+    "en": "Inglizcha",
+    "ru": "Ruscha",
+    "uz": "O‘zbekcha"
+  },
+  "search": {
+    "title": "Kompaniya texnologik stekini o‘rganish",
+    "subtitle": "Tillar, repozitoriyalar va kontributorlarni ko‘rish uchun GitHub tashkilot slug’ini kiriting.",
+    "placeholder": "Tashkilot slug (masalan vercel)",
+    "submit": "Ko‘rish",
+    "suggestedTitle": "Tavsiya etilgan tashkilotlar"
+  },
+  "org": {
+    "viewOnGitHub": "GitHub’da ochish",
+    "stats": {
+      "repos": "Ochiq repozitoriyalar",
+      "followers": "Kuzatuvchilar"
+    },
+    "sections": {
+      "techStack": "Texnologik stek",
+      "repositories": "Repozitoriyalar",
+      "contributors": "Top kontributorlar"
+    },
+    "rateLimit": {
+      "title": "GitHub so‘rov limiti",
+      "body": "Ushbu tarmoqdan GitHub API’ga juda ko‘p so‘rov yuborildi. Biroz kutib, qayta urinib ko‘ring.",
+      "retry": "Qayta urinish",
+      "resetsIn": "{seconds} s dan keyin yangilanadi",
+      "remaining": "Bu soatda qolgan so‘rovlar: {count}"
+    },
+    "empty": {
+      "title": "Ochiq repozitoriyalar yo‘q",
+      "body": "Tashkilot GitHub’da mavjud, lekin tahlil qilish uchun ochiq repozitoriyalar yo‘q.",
+      "back": "Boshqa tashkilot qidirish"
+    },
+    "languageOther": "Boshqalar",
+    "loadingTech": "Til statistikasi yuklanmoqda…",
+    "loadingContributors": "Kontributorlar yuklanmoqda…",
+    "loadingRepos": "Qolgan repozitoriyalar yuklanmoqda…",
+    "genericError": "Ma’lumot yuklashda xato yuz berdi."
+  },
+  "repo": {
+    "stars": "Yulduzlar",
+    "forks": "Forklar",
+    "lastUpdated": "Oxirgi yangilanish",
+    "viewRepo": "GitHub’da ochish"
+  },
+  "contributor": {
+    "contributions": "Hissalar: {count}"
+  },
+  "errors": {
+    "notFoundTitle": "Tashkilot topilmadi",
+    "notFoundBody": "“{slug}” nomli GitHub tashkiloti topilmadi. Slug’ni tekshirib, qayta urinib ko‘ring.",
+    "tryOther": "Boshqa tashkilot",
+    "pageErrorTitle": "Kutilmagan xato",
+    "pageErrorBody": "Qayta urinib ko‘ring yoki bosh sahifaga qayting.",
+    "retry": "Qayta urinish",
+    "goHome": "Bosh sahifa"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "body": "Bu sahifa mavjud emas.",
+    "home": "Bosh sahifaga"
+  },
+  "validation": {
+    "required": "Tashkilot slug’i majburiy.",
+    "noSpaces": "Slug bo‘sh joy o‘z ichiga olmasligi kerak."
+  }
+}

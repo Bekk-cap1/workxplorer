@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "appTitle": "WorkXplorer — Tech Stack Explorer",
+    "appDescription": "Research employers by exploring public GitHub tech stacks."
+  },
+  "nav": {
+    "brand": "WorkXplorer",
+    "home": "Home"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "ru": "Russian",
+    "uz": "Uzbek"
+  },
+  "search": {
+    "title": "Company Tech Stack Explorer",
+    "subtitle": "Enter a GitHub organization slug to see languages, repositories, and contributors.",
+    "placeholder": "Organization slug (e.g. vercel)",
+    "submit": "Explore",
+    "suggestedTitle": "Suggested organizations"
+  },
+  "org": {
+    "viewOnGitHub": "View on GitHub",
+    "stats": {
+      "repos": "Public repositories",
+      "followers": "Followers"
+    },
+    "sections": {
+      "techStack": "Tech stack",
+      "repositories": "Repositories",
+      "contributors": "Top contributors"
+    },
+    "rateLimit": {
+      "title": "GitHub rate limit",
+      "body": "Too many requests were sent to the GitHub API from this network. Please wait before trying again.",
+      "retry": "Try again",
+      "resetsIn": "Resets in {seconds}s",
+      "remaining": "{count} requests remaining this hour"
+    },
+    "empty": {
+      "title": "No public repositories",
+      "body": "This organization exists on GitHub but has no public repositories to analyze.",
+      "back": "Search another org"
+    },
+    "languageOther": "Other",
+    "loadingTech": "Loading language statistics…",
+    "loadingContributors": "Loading contributors…",
+    "loadingRepos": "Loading remaining repositories…",
+    "genericError": "Something went wrong while loading data."
+  },
+  "repo": {
+    "stars": "Stars",
+    "forks": "Forks",
+    "lastUpdated": "Last updated",
+    "viewRepo": "View on GitHub"
+  },
+  "contributor": {
+    "contributions": "{count} contributions"
+  },
+  "errors": {
+    "notFoundTitle": "Organization not found",
+    "notFoundBody": "We could not find a GitHub organization named “{slug}”. Check the slug and try again.",
+    "tryOther": "Try another org",
+    "pageErrorTitle": "Unexpected error",
+    "pageErrorBody": "Please try again or return home.",
+    "retry": "Retry",
+    "goHome": "Home"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist.",
+    "home": "Back home"
+  },
+  "validation": {
+    "required": "Organization slug is required.",
+    "noSpaces": "Slug cannot contain spaces."
+  }
+}
