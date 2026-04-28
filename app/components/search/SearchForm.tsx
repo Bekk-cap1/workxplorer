@@ -22,7 +22,7 @@ export default function SearchForm() {
 
   const onSubmit = (values: SearchValues) => {
     const slug = values.slug.trim()
-    router.push(`/org/${encodeURIComponent(slug)}`)
+    router.push(`/org?q=${encodeURIComponent(slug)}`)
   }
 
   return (
