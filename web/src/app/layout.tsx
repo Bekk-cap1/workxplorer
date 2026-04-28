@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
 import { I18nProvider } from "@/i18n/I18nContext";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { RouteProgress } from "@/components/RouteProgress";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-display",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Beshqozon — stolni onlayn bron qilish",
@@ -31,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={`${inter.variable} ${jetBrainsMono.variable}`}>
+    <html lang="uz">
       <body className="antialiased">
         <AuthProvider>
           <I18nProvider>
