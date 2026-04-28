@@ -11,12 +11,6 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // Отключаем ESLint-проверку на этапе build (dev остаётся как есть).
-  // Это в 2-3 раза ускоряет npm run build.
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
   experimental: {
     // Tree-shake иконочных и date-fns-подобных пакетов быстрее.
     optimizePackageImports: [],
