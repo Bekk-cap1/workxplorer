@@ -13,6 +13,7 @@ import {
   fetchTopContributors,
 } from "@/app/lib/github-server"
 
+
 export default async function OrgPage({
   params,
 }: {
