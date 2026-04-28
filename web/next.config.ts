@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: "export",
   reactStrictMode: true,
 
   // Сжимаем логи dev — убираем лишние сообщения о каждой HMR-пересборке
