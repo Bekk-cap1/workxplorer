@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "tz",
   "version": "0.1.0",
   "private": true,
@@ -29,21 +28,5 @@
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"
-=======
-  "name": "besh-qozon",
-  "private": true,
-  "workspaces": [
-    "web",
-    "api"
-  ],
-  "scripts": {
-    "dev:web": "npm run dev --workspace=web",
-    "dev:api": "npm run start:dev --workspace=api",
-    "db:up": "docker compose up -d",
-    "db:down": "docker compose down",
-    "prisma:migrate": "npm run prisma:migrate --workspace=api",
-    "prisma:generate": "npm run prisma:generate --workspace=api",
-    "prisma:seed": "npm run prisma:seed --workspace=api"
->>>>>>> 2dceaf6fc4de2ab526bf26f7ae4411d64ca30d36
   }
 }

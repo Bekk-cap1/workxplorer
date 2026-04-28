@@ -1,64 +1,14 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
 /.pnp
 .pnp.*
-=======
-# ── Dependencies ──────────────────────────────
-node_modules/
-
-# ── Build outputs ─────────────────────────────
-dist/
-build/
-out/
-.next/
-*.tsbuildinfo
-
-# ── Environment & secrets ─────────────────────
-.env
-.env.local
-.env.*.local
-# keep .env.example in repo
-!.env.example
-
-# ── Logs ──────────────────────────────────────
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# ── Prisma generated client ───────────────────
-generated/
-
-# ── Coverage / test artifacts ─────────────────
-coverage/
-.nyc_output/
-
-# ── OS ────────────────────────────────────────
-.DS_Store
-Thumbs.db
-
-# ── Editor ────────────────────────────────────
-.vscode/settings.json
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
-# ── Misc ──────────────────────────────────────
-*.pem
-.vercel
->>>>>>> 2dceaf6fc4de2ab526bf26f7ae4411d64ca30d36
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-<<<<<<< HEAD
 
 # testing
 /coverage
@@ -90,5 +40,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-=======
->>>>>>> 2dceaf6fc4de2ab526bf26f7ae4411d64ca30d36
