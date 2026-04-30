@@ -2,8 +2,6 @@
 
 GitHub organization explorer — search any GitHub org and see its tech stack, top repositories, and contributors.
 
-**Live demo:** https://workxplorer-git-main-asadbekpro567s-projects.vercel.app
-
 ---
 
 ## Stack
