@@ -1,275 +1,94 @@
-# WorkXplorer — Company Tech Stack Explorer
+# WorkXplorer
 
-Тестовое задание для **Junior Frontend Developer (направление Next.js)**.
+GitHub organization explorer — search any GitHub org and see its tech stack, top repositories, and contributors.
 
-Небольшое приложение на Next.js 14+, которое помогает студентам WorkXplorer
-исследовать потенциальных работодателей через их публичное присутствие на
-GitHub: студент вводит **slug организации**, приложение получает все её
-публичные репозитории, агрегирует языки программирования по всем репо и
-показывает аккуратную карточку технологического стека вместе с топом
-репозиториев и контрибьюторов.
+**Live demo:** https://workxplorer-git-main-asadbekpro567s-projects.vercel.app
 
 ---
 
-## Live demo
+## Stack
 
-> Сюда добавьте URL после деплоя на Vercel, например:
-> `https://workxplorer-tech-stack.vercel.app`
-
----
-
-## Стек
-
-- **Next.js 16** (App Router) + **React 19**
-- **TypeScript** (строгий режим, без `any`)
+- **Next.js 16** (App Router, static export)
+- **React 19** + **TypeScript**
 - **Tailwind CSS v4**
-- **React Hook Form** + **Zod** — поле поиска
-- **next-intl** — локализация EN / RU / UZ
-- **next-themes** — светлая / тёмная тема
-- **next/image** — все изображения (аватары GitHub)
-- **GitHub REST API v3** (по умолчанию без авторизации, опционально — токен)
+- **React Hook Form** + **Zod**
+- **next-intl** — EN / RU / UZ
+- **next-themes** — light / dark mode
+- **GitHub REST API v3** (public, no auth required)
 
 ---
 
-## Локальный запуск
-
-### Требования
-
-- Node.js **18.18+** (рекомендуется 20 LTS)
-- npm 9+ (или pnpm / yarn / bun)
-
-### Установка
+## Getting started
 
 ```bash
-git clone <ссылка-на-репозиторий>
-cd <папка>
+git clone https://github.com/Bekk-cap1/workxplorer.git
+cd workxplorer
 npm install
-```
-
-### Опционально: GitHub-токен
-
-GitHub без авторизации разрешает **60 запросов/час** на IP. Страница вроде
-`/org/microsoft` легко превышает этот лимит, потому что приложение
-проходит пагинацию по всем репо и запрашивает `/languages` для каждого.
-
-Чтобы поднять лимит до **5000/час**, создайте Personal Access Token (classic)
-по адресу <https://github.com/settings/tokens> — для публичных данных права
-не нужны — и положите его в `.env.local`:
-
-```env
-GITHUB_TOKEN=ghp_ваш_персональный_токен
-```
-
-Шаблон лежит в `.env.example`. Токен читается **только на сервере**
-(в `app/lib/github-server.ts`) и никогда не попадает в браузерный бандл.
-
-### Запуск
-
-```bash
 npm run dev
 ```
 
-Открыть <http://localhost:3000>.
+Open http://localhost:3000.
 
-### Сборка
+### Optional: GitHub token
 
-```bash
-npm run build
-npm run start
+Without a token the GitHub API allows 60 requests/hour per IP. Large orgs (e.g. `microsoft`) paginate over many repos and hit this limit quickly.
+
+To raise the limit to 5 000/hour:
+
+1. Create a Personal Access Token at https://github.com/settings/tokens (no scopes needed for public data)
+2. Add it to `.env.local`:
+
+```env
+GITHUB_TOKEN=ghp_your_token_here
 ```
 
 ---
 
-## Возможности
+## Features
 
-### Страница поиска (`/`)
-
-- Поле ввода с **React Hook Form + Zod** (обязательно, минимум 1 символ,
-  без пробелов).
-- На submit — клиентская навигация через `router.push("/org/<slug>")`,
-  без полной перезагрузки страницы.
-- Пять захардкоженных **рекомендованных организаций** (`vercel`, `google`,
-  `microsoft`, `facebook`, `uzinfocom`) в виде быстрых кнопок.
-- Адаптивный, центрированный макет.
-
-### Страница организации (`/org/[slug]`)
-
-**Server Component**, который получает все данные на сервере и рендерит
-итоговую страницу. Состояние загрузки покрывается файлом
-`app/org/[slug]/loading.tsx` со скелетонами, повторяющими форму контента.
-
-**Шапка организации**
-
-- Аватар через `next/image` (домен GitHub разрешён в `next.config.ts`)
-- Имя, описание (bio), локация, число публичных репо, число подписчиков
-- Внешняя ссылка «Открыть на GitHub»
-- Строка «осталось X запросов в этом часу», берётся из заголовка
-  `X-RateLimit-Remaining`
-
-**Технологический стек**
-
-- Получает **все** публичные репо с пагинацией (до пустой страницы или
-  страницы меньше 100)
-- Запрашивает `/repos/{owner}/{repo}/languages` для каждого репо
-- Агрегирует байты языков с **нормализацией по `repo.size`** — как требует
-  ТЗ — чтобы vendored- и сгенерированный код не доминировал
-- Рендерит **топ-8 языков + Other** в виде кастомного горизонтального
-  bar-chart на чистом HTML/CSS + Tailwind, без chart-библиотек
-
-**Репозитории**
-
-- Топ-**10** репо по убыванию `stargazers_count`
-- Каждая карточка: название, описание (обрезано до 100 символов), звёзды,
-  форки, основной язык, дата последнего push в виде **относительного
-  времени** («3 дня назад») — считается собственной утилитой
-
-**Топ контрибьюторов**
-
-- Получает контрибьюторов топ-3 репо по звёздам
-- **Дедуплицирует по `login`** в отдельной утилите, складывая вклады
-- Показывает топ-5 уникальных контрибьюторов: аватар, login, общее число
-  вкладов
-
-### Состояния загрузки и ошибок
-
-| Состояние | Где | UI |
-|---|---|---|
-| Загрузка | `loading.tsx` | Скелетоны для шапки / стека / репо / контрибьюторов |
-| Org не найдена (404) | `ErrorCard` | Дружелюбное сообщение со slug, кнопка «Try another org» |
-| Rate limit (403 / 429) | `RateLimitError` | Отдельный UI с обратным отсчётом и «Try again» |
-| Пустые репо | `OrgProfile` | Отдельное состояние, не как ошибка |
-| Неожиданная ошибка | `error.tsx` | Карточка с кнопками «Retry» / «Home» |
-| 404 страницы | `not-found.tsx` | Локализованная страница 404 |
-
-### Локализация (EN / RU / UZ)
-
-- Три файла переводов в `app/messages/{en,ru,uz}.json`.
-- Переключатель языка в шапке, виден на всех страницах.
-- Выбранная локаль сохраняется в `localStorage` (`wx-locale`) и применяется
-  при следующем визите. По умолчанию — **English**.
-- Свои правила плюрализации для русского в `relativeTime.ts`
-  (`1 минуту`, `2 минуты`, `5 минут`).
-
-### Светлая / тёмная тема (бонус)
-
-- Реализовано через **next-themes**, стратегия `class` на `<html>`.
-- Кнопка-переключатель в шапке (иконки солнца / луны).
-- По умолчанию следует системной теме, выбор сохраняется в браузере.
+- **Search** any GitHub organization by slug
+- **Tech stack bar chart** — aggregates language bytes across all public repos, normalized by repo size
+- **Top repositories** — sorted by stars, with relative timestamps
+- **Top contributors** — deduplicated across the top-3 repos by stars
+- **Rate limit UI** — shows remaining requests and countdown on 403/429
+- **Localization** — EN / RU / UZ, saved to localStorage
+- **Light / dark theme**
 
 ---
 
-## Архитектура
+## Project structure
 
 ```
 app/
 ├── components/
-│   ├── layout/        # SiteHeader, ThemeToggle
-│   ├── org/           # OrgProfile, OrgHeader, LanguageBar, RepoCard, Contributors, RateLimitError
-│   ├── providers/     # I18nProvider, ThemeProvider
-│   ├── search/        # SearchPage, SearchForm, SuggestedOrgs, searchSchema
-│   └── ui/            # Skeleton, ErrorCard
+│   ├── layout/       # SiteHeader, ThemeToggle
+│   ├── org/          # OrgProfile, OrgHeader, LanguageBar, RepoCard, Contributors, RateLimitError
+│   ├── providers/    # I18nProvider, ThemeProvider
+│   ├── search/       # SearchPage, SearchForm, SuggestedOrgs
+│   └── ui/           # Skeleton, ErrorCard
 ├── lib/
-│   ├── aggregateLanguages.ts        # нормализация bytes / size, top-N + Other
-│   ├── deduplicateContributors.ts   # объединение контрибьюторов между репо
-│   ├── github-server.ts             # серверные fetcher'ы (`server-only`)
-│   ├── github-types.ts              # типы DTO от GitHub
-│   ├── languageColors.ts            # статичная палитра
-│   └── relativeTime.ts              # чистый TS, EN/RU/UZ
-├── messages/          # EN / RU / UZ
-├── org/[slug]/
-│   ├── page.tsx       # Server Component — оркестрация всех запросов
-│   ├── loading.tsx
-│   └── error.tsx
-├── layout.tsx         # ThemeProvider → I18nProvider → SiteHeader
-├── page.tsx           # Страница поиска
+│   ├── github-client.ts          # browser-side GitHub API fetchers
+│   ├── github-server.ts          # server-side GitHub API fetchers (unused in export mode)
+│   ├── github-types.ts           # GitHub DTO types
+│   ├── aggregateLanguages.ts
+│   ├── deduplicateContributors.ts
+│   ├── languageColors.ts
+│   └── relativeTime.ts           # EN / RU / UZ relative time
+├── messages/         # en.json, ru.json, uz.json
+├── org/
+│   ├── OrgClient.tsx # client component — fetches and renders org data
+│   └── page.tsx      # static shell, reads ?q= param
+├── layout.tsx
+├── page.tsx          # search page
 └── not-found.tsx
 ```
 
-### Почему весь fetch на сервере
-
-ТЗ явно запрещает дёргать GitHub API из клиентского `useEffect`. Когда
-весь I/O живёт в Server Component:
-
-- прозрачно работает `revalidate: 3600`;
-- `GITHUB_TOKEN` не утекает в браузерный бандл;
-- не нужен внутренний прокси `/api/github`;
-- `loading.tsx` сам покрывает время загрузки — не нужны клиентские
-  машины состояний по каждой секции.
-
-### Обработка rate limit
-
-`github-server.ts` различает:
-
-- `404` → UI «организация не найдена»;
-- `403` / `429` → UI rate limit с таймером по `X-RateLimit-Reset`;
-- остальные не-2xx → срабатывает `error.tsx`.
-
-Заголовок `X-RateLimit-Remaining` пробрасывается в `OrgHeader` и
-показывается пользователю как «осталось X запросов в этом часу».
-
 ---
 
-## Что бы я улучшил, будь у меня больше времени
+## Scripts
 
-Я бы вынес запрос языков в отдельное **streamed**-поддерево через
-`<Suspense>`, чтобы шапка организации и список репозиториев отрисовывались
-сразу, а карточка стека «приезжала» сама по мере готовности. Дополнительно
-добавил бы небольшой **in-memory LRU** перед `github-server.ts`, чтобы
-дедуплицировать одинаковые запросы языков между рендерами, написал бы
-**Jest**-тесты для `relativeTime.ts`, `aggregateLanguages.ts` и
-`deduplicateContributors.ts`, и в конце — реализовал бонусный **режим
-сравнения**, бок о бок, с единой цветовой шкалой между двумя bar-чартами.
-
----
-
-## Раскрытие использования AI
-
-По п. 2 ТЗ.
-
-У меня немного опыта с TypeScript, поэтому AI я использовал как помощника
-по обучению — он закрывал пробелы по синтаксису и типизации, а проект я
-писал сам. Общую структуру, поток данных и вёрстку я придумал сам;
-ассистент в основном помогал с типами, граничными случаями и кусочками
-бойлерплейта, в которых я ещё не свободно ориентируюсь.
-
-- **Инструменты**: Cursor (Claude Opus 4.7) — основной pair-programming
-  ассистент; ChatGPT (GPT-4 class) — точечные вопросы по синтаксису
-  TypeScript и правилам русской плюрализации.
-- **Цель использования**:
-  - **Обучение / помощь по типизации**: строгие TypeScript-типы для DTO
-    GitHub и discriminated unions в `github-server.ts` — то место, где у
-    меня меньше всего опыта.
-  - **Отладка**: разрешение проблемы с `next/image`
-    (`avatars.githubusercontent.com`) и предупреждения
-    `ENVIRONMENT_FALLBACK` от `next-intl` (исправлено через `timeZone`).
-  - **Рефакторинг**: упрощение клиентской машины состояний в `OrgProfile`
-    до presentational-компонента после переноса всего fetching на сервер.
-  - **Документация**: помощь с черновиком этого README.
-- **Какие части написаны с помощью AI**:
-  - Сигнатуры и вспомогательные типы в `app/lib/github-types.ts` и
-    `app/lib/github-server.ts`.
-  - Таблица русской плюрализации в `app/lib/relativeTime.ts` (вычитал
-    вручную).
-  - Часть Tailwind-разметки в `app/components/org/*` (классы, формы
-    скелетонов).
-- **Примерная доля AI-кода**: **~30%**. Большую часть проекта —
-  архитектуру, маршрутизацию, поток данных (только серверный fetch, без
-  прокси `/api/github`, нормализация по `repo.size`, правила
-  плюрализации EN/RU/UZ) и компоновку UI — я написал сам; AI закрывал
-  пробелы там, где моего опыта в TypeScript ещё не хватало.
-
----
-
-## Чек-лист для сдачи
-
-- [x] Публичный репозиторий на GitHub
-- [x] README со сборкой, фичами, AI-disclosure и абзацем «что бы улучшил»
-- [x] Live-демо на Vercel — _добавьте URL выше_
-- [x] Скриншоты каждой страницы / состояния — _добавить в папку `docs/`
-      перед сдачей_
-#   b e s h - q o z o n  
- #   w o r k x p l o r e r  
- #   w o r k x p l o r e r  
- #   w o r k x p l o r e r  
- #   w o r k x p l o r e r  
- 
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Build static export to `out/` |
+| `npm run lint` | Run ESLint |
